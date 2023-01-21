@@ -4,10 +4,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const userRoute_1 = __importDefault(require("../routes/userRoute"));
+const cors_1 = __importDefault(require("cors"));
 class Server {
     constructor() {
+        this.apiPaths = {
+            user: '/api/users'
+        };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
+        this.middlewares();
+        this.routes();
+    }
+    middlewares() {
+        //Config cors
+        this.app.use((0, cors_1.default)());
+        //Lectura del body
+        this.app.use(express_1.default.json());
+        //Directorio publico
+        this.app.use(express_1.default.static('public'));
+    }
+    routes() {
+        this.app.use(this.apiPaths.user, userRoute_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {
