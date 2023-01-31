@@ -1,18 +1,21 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
-const Usuario = db.define('Usuario', {
-    nombre: {
+const User = db.define('users', {
+    id_user: {
+        type: DataTypes.STRING
+    },
+    name: {
         type: DataTypes.STRING
     },
     email: {
         type: DataTypes.STRING
     },
-    estado: {
+    state: {
         type: DataTypes.BOOLEAN
     }
 });
 
 
-export default Usuario;
+export default User;
 
